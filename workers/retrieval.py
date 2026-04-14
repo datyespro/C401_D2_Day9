@@ -33,15 +33,15 @@ def _get_embedding_fn():
     Trả về embedding function.
     TODO Sprint 1: Implement dùng OpenAI hoặc Sentence Transformers.
     """
-    # Option A: Sentence Transformers (offline, không cần API key)
-    try:
-        from sentence_transformers import SentenceTransformer
-        model = SentenceTransformer("all-MiniLM-L6-v2")
-        def embed(text: str) -> list:
-            return model.encode([text])[0].tolist()
-        return embed
-    except ImportError:
-        pass
+    # # Option A: Sentence Transformers (offline, không cần API key)
+    # try:
+    #     from sentence_transformers import SentenceTransformer
+    #     model = SentenceTransformer("all-MiniLM-L6-v2")
+    #     def embed(text: str) -> list:
+    #         return model.encode([text])[0].tolist()
+    #     return embed
+    # except ImportError:
+    #     pass
 
     # Option B: OpenAI (cần API key)
     try:
@@ -96,7 +96,7 @@ def retrieve_dense(query: str, top_k: int = DEFAULT_TOP_K) -> list:
     # TODO: Implement dense retrieval
     embed = _get_embedding_fn()
     query_embedding = embed(query)
-
+    
     try:
         collection = _get_collection()
         results = collection.query(
