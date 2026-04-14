@@ -1,0 +1,116 @@
+{
+  "task": "Don hang 31/01/2026, khach yeu cau hoan tien 07/02/2026. Duoc khong?",
+  "route_reason": "route=policy_tool_worker | signals: refund_policy[31/01] | mcp_tools=available",
+  "risk_high": false,
+  "needs_tool": true,
+  "hitl_triggered": false,
+  "retrieved_chunks": [
+    {
+      "text": "[MOCK] Không thể query ChromaDB: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable. Kết quả giả lập.",
+      "source": "mock_data",
+      "score": 0.5
+    }
+  ],
+  "retrieved_sources": [],
+  "policy_result": {
+    "policy_applies": true,
+    "policy_name": "refund_policy_v4",
+    "exceptions_found": [],
+    "source": [
+      "mock_data"
+    ],
+    "policy_version_note": "Đơn hàng đặt trước 01/02/2026 áp dụng chính sách v3 (không có trong tài liệu hiện tại).",
+    "explanation": "Analyzed via rule-based policy check. TODO: upgrade to LLM-based analysis."
+  },
+  "mcp_tools_used": [
+    {
+      "tool": "search_kb",
+      "input": {
+        "query": "Don hang 31/01/2026, khach yeu cau hoan tien 07/02/2026. Duoc khong?",
+        "top_k": 3
+      },
+      "output": {
+        "chunks": [
+          {
+            "text": "[MOCK] Không thể query ChromaDB: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable. Kết quả giả lập.",
+            "source": "mock_data",
+            "score": 0.5
+          }
+        ],
+        "sources": [
+          "mock_data"
+        ],
+        "total_found": 1
+      },
+      "error": null,
+      "timestamp": "2026-04-14T15:05:55.368140"
+    }
+  ],
+  "final_answer": "[SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env.",
+  "sources": [
+    "mock_data"
+  ],
+  "confidence": 0.5,
+  "history": [
+    "[supervisor] received task: Don hang 31/01/2026, khach yeu cau hoan tien 07/02/2026. Duoc khong?",
+    "[supervisor] route=policy_tool_worker | needs_tool=True | risk_high=False | multi_hop=False",
+    "[supervisor] route_reason: route=policy_tool_worker | signals: refund_policy[31/01] | mcp_tools=available",
+    "[retrieval_worker] ERROR: The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable",
+    "[policy_tool_worker] called MCP search_kb",
+    "[policy_tool_worker] policy_applies=True, exceptions=0",
+    "[synthesis_worker] answer generated, confidence=0.5, sources=['mock_data']",
+    "[graph] completed in 0ms"
+  ],
+  "workers_called": [
+    "retrieval_worker",
+    "policy_tool_worker",
+    "synthesis_worker"
+  ],
+  "supervisor_route": "policy_tool_worker",
+  "latency_ms": 0,
+  "run_id": "run_20260414_150555",
+  "worker_io_logs": [
+    {
+      "worker": "retrieval_worker",
+      "input": {
+        "task": "Don hang 31/01/2026, khach yeu cau hoan tien 07/02/2026. Duoc khong?",
+        "top_k": 3
+      },
+      "output": null,
+      "error": {
+        "code": "RETRIEVAL_FAILED",
+        "reason": "The api_key client option must be set either by passing api_key to the client or by setting the OPENAI_API_KEY environment variable"
+      }
+    },
+    {
+      "worker": "policy_tool_worker",
+      "input": {
+        "task": "Don hang 31/01/2026, khach yeu cau hoan tien 07/02/2026. Duoc khong?",
+        "chunks_count": 0,
+        "needs_tool": true
+      },
+      "output": {
+        "policy_applies": true,
+        "exceptions_count": 0,
+        "mcp_calls": 1
+      },
+      "error": null
+    },
+    {
+      "worker": "synthesis_worker",
+      "input": {
+        "task": "Don hang 31/01/2026, khach yeu cau hoan tien 07/02/2026. Duoc khong?",
+        "chunks_count": 1,
+        "has_policy": true
+      },
+      "output": {
+        "answer_length": 65,
+        "sources": [
+          "mock_data"
+        ],
+        "confidence": 0.5
+      },
+      "error": null
+    }
+  ]
+}
